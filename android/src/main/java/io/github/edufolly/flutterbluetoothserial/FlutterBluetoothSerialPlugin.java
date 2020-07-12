@@ -757,14 +757,6 @@ public class FlutterBluetoothSerialPlugin implements MethodCallHandler, RequestP
                 break;
 
             case "getBondedDevices":
-                ensurePermissions(new EnsurePermissionsCallback() {
-                    @Override
-                    public void onResult(boolean granted) {
-                        if (!granted) {
-                            result.error("no_permissions", "discovering other devices requires location access permission", null);
-                            return;
-                        }
-
                         List<Map<String, Object>> list = new ArrayList<>();
                         for (BluetoothDevice device : bluetoothAdapter.getBondedDevices()) {
                             Map<String, Object> entry = new HashMap<>();
@@ -777,8 +769,6 @@ public class FlutterBluetoothSerialPlugin implements MethodCallHandler, RequestP
                         }
 
                         result.success(list);
-                    }
-                });
                 break;
 
             case "isDiscovering":
